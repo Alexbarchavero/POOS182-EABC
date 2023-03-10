@@ -1,4 +1,4 @@
-from tkinter import Tk, Frame, Label, Button, Entry, messagebox
+from tkinter import messagebox
 import random
 import string
 

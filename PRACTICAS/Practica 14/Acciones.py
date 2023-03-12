@@ -1,8 +1,3 @@
-"""
-Se requiere un programa para la administración de cuenta en caja popular, con el programa
-podremos consultar saldo, ingresar efectivo, retirar efectivo y depositar a otra cuenta,
-cada cuenta tiene registrados los siguientes datos: No. Cuenta, titular, edad y saldo
-"""
 from tkinter import messagebox
 
 class Acciones:
@@ -19,23 +14,52 @@ class Acciones:
         self.__edad.append(edad)
         self.__saldo.append(saldo)
         
-        messagebox.showinfo("Exito","Registro existoso")
+        messagebox.showinfo("Exito","Registro exitoso")
     
-    def consultSaldo(self):
-        saldo = float(self.__saldo.get())
-        messagebox.showinfo("Consulta de Saldo","Tu saldo es: "+saldo)
+    def consultar_saldo(self, ncuenta):
+        if ncuenta in self.__ncuenta:
+            index = self.__ncuenta.index(ncuenta)
+            saldo = self.__saldo[index]
+            messagebox.showinfo("Consulta de Saldo","Tu saldo es: "+ str(saldo))
+        else:
+            messagebox.showerror("Error", "No se encontró la cuenta")
     
-    def ingresarCash(self,ingreso):
-        saldo = float(self.__saldo.get())
-        saldo += ingreso
-        messagebox.showinfo("Actualización de saldo","Tu saldo es:"+saldo)
+    def ingresar_efectivo(self, ncuenta, ingreso):
+        if ncuenta in self.__ncuenta:
+            index = self.__ncuenta.index(ncuenta)
+            saldo = self.__saldo[index]
+            saldo += ingreso
+            self.__saldo[index] = saldo
+            messagebox.showinfo("Actualización de saldo","Tu saldo es:"+ str(saldo))
+        else:
+            messagebox.showerror("Error", "No se encontró la cuenta")
     
-    def retirarCash(self,retiro):
-        saldo = float(self.__saldo.get())
-        saldo -= retiro
-        messagebox.showinfo("Actualización de saldo","Tu saldo es:"+saldo)
+    def retirar_efectivo(self, ncuenta, retiro):
+        if ncuenta in self.__ncuenta:
+            index = self.__ncuenta.index(ncuenta)
+            saldo = self.__saldo[index]
+            if saldo >= retiro:
+                saldo -= retiro
+                self.__saldo[index] = saldo
+                messagebox.showinfo("Actualización de saldo","Tu saldo es:"+ str(saldo))
+            else:
+                messagebox.showerror("Error", "No tienes suficiente saldo")
+        else:
+            messagebox.showerror("Error", "No se encontró la cuenta")
     
-    def depositar(self,deposito):
-        saldo = float(self.__saldo.get())
-        saldo -= deposito
-        messagebox.showinfo("Deposito completado","Tu nuevo saldo es:"+saldo)
+    def depositar_a_otra_cuenta(self, ncuenta_origen, ncuenta_destino, deposito):
+        if ncuenta_origen in self.__ncuenta and ncuenta_destino in self.__ncuenta:
+            index_origen = self.__ncuenta.index(ncuenta_origen)
+            index_destino = self.__ncuenta.index(ncuenta_destino)
+            saldo_origen = self.__saldo[index_origen]
+            saldo_destino = self.__saldo[index_destino]
+            if saldo_origen >= deposito:
+                saldo_origen -= deposito
+                saldo_destino += deposito
+                self.__saldo[index_origen] = saldo_origen
+                self.__saldo[index_destino] = saldo_destino
+                messagebox.showinfo("Depósito completado","Tu nuevo saldo es:"+ str(saldo_origen))
+            else:
+                messagebox.showerror("Error", "No tienes suficiente saldo")
+        else:
+            messagebox.showerror("Error", "No se encontró la cuenta")

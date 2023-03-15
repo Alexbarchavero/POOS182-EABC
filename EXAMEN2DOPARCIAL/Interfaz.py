@@ -5,15 +5,14 @@ w1 = Tk()
 w1.title("Examen 1er Parcial")
 w1.geometry("720x640")
 
-acc = Acciones()
-
 def genMat():
     name = enName.get()
     app = enAPP.get()
     apm = enAPM.get()
     year = enY.get()
     carrera = enC.get()
-    acc.generarMatri(name, app, apm, year, carrera)
+    acc = Acciones(name, app, apm, year, carrera)
+    acc.generarMatri()
 
 f1 = Frame(w1)
 f1.pack(expand=True,fill='both')
@@ -37,17 +36,17 @@ enAPM = Entry(f1)
 enAPM.grid(row=3, column=2, padx=10, pady=10)
 
 lbY = Label(f1,text="Año de nacimiento: ")
-lbY.grid(row=3, column=1, padx=10, pady=10)
+lbY.grid(row=4, column=1, padx=10, pady=10)
 enY = Entry(f1)
-enY.grid(row=3, column=2, padx=10, pady=10)
+enY.grid(row=4, column=2, padx=10, pady=10)
 
 lbC = Label(f1,text="Carrera: ")
-lbC.grid(row=4, column=1, padx=10, pady=10)
+lbC.grid(row=5, column=1, padx=10, pady=10)
 enC = Entry(f1)
-enC.grid(row=4, column=2, padx=10, pady=10)
+enC.grid(row=5, column=2, padx=10, pady=10)
 
 btnGenerar = Button(f1,text="Generar",command=genMat)
-btnGenerar.grid(row=5, column=2, padx=10, pady=10)
+btnGenerar.grid(row=6, column=2, padx=10, pady=10)
 
 
 w1.mainloop()

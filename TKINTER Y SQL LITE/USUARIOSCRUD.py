@@ -1,6 +1,13 @@
 from tkinter import *
 from tkinter import ttk
 import tkinter as tk
+from ControladorBD import *
+
+# Instancia
+c = ControladorBD()
+
+def exeInsert():
+    c.saveUser(Name.get(),Correo.get(),Contra.get())
 
 w1 = Tk()
 w1.title("CRUD de usuarios")
@@ -29,13 +36,11 @@ Contra = tk.StringVar()
 LBContra = Label(pestana1,text="Contraseña: ").pack()
 ENContra = Entry(pestana1,textvariable=Contra).pack()
 
-btnGuardar = Button(pestana1,text="Guardar Usuario").pack()
-
+btnGuardar = Button(pestana1,text="Guardar Usuario",command=exeInsert).pack()
 
 panel.add(pestana1, text = "Agregar Usuarios")
 panel.add(pestana2, text = "Buscar Usuario")
 panel.add(pestana3, text = "Consultar Usuarios")
 panel.add(pestana4, text = "Actualizar Usuario")
-
 
 w1.mainloop()

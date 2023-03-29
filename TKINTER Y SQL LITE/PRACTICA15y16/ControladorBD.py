@@ -9,7 +9,7 @@ class ControladorBD:
     
     def conexionBD(self):
         try:
-            conexion = sqlite3.connect("C:/Users/Alejandro/Documents/GitHub/POOS182-EABC/TKINTER Y SQL LITE/DB usuarios.db")
+            conexion = sqlite3.connect("C:/Users/Alejandro/Documents/GitHub/POOS182-EABC/TKINTER Y SQL LITE/PRACTICA15y16/DB usuarios.db")
             print("Conectando a la base de datos")
             return conexion
         except sqlite3.OperationalError:
@@ -47,3 +47,26 @@ class ControladorBD:
             conx.commit()
             conx.close()
             messagebox.showinfo("Realizado","Usuario Guardado")
+    
+    def consulUser(self,id):
+        # Realizar la conexion a la BD
+        conx = self.conexionBD()
+        
+        # Verificar que el id no este vacio
+        if id ==  '':
+            messagebox.showwarning("Advertencia","Campo vacío")
+            conx.close()
+        else:
+            # Proceder a la consulta
+            try:
+                cursor = conx.cursor()
+                sqlSelect = " select * from tbRegistrados where id = "+id
+                
+                # Ejecutar
+                cursor.execute(sqlSelect)
+                RSuser = cursor.fetchall()
+                conx.close()
+                return RSuser
+                
+            except sqlite3.OperationalError:
+                print("Error de consulta")

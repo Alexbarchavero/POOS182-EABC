@@ -15,7 +15,7 @@ def exeSelectUser():
     for user in rsUser:
         cadena = str(user[0])+" "+user[1]+" "+user[2]+" "+str(user[3])
     if(rsUser):
-        print(cadena)
+        textBus.insert("0.0",cadena)
     else:
         messagebox.showinfo("No encontrado","Usuario no existe en BD")
 
@@ -58,7 +58,8 @@ ENid = Entry(pestana2,textvariable=Busqueda).pack()
 btnBusqueda = Button(pestana2,text="Buscar usuario",command=exeSelectUser).pack()
 
 subBus = Label(pestana2,text="Registrado",fg="blue",font=("Modern",18)).pack()
-textBus = Text(pestana2, height=5, width=52).pack()
+textBus = Text(pestana2, height=5, width=52)
+textBus.pack()
 
 panel.add(pestana1, text = "Agregar Usuarios")
 panel.add(pestana2, text = "Buscar Usuario")

@@ -30,7 +30,7 @@ def exeSelectAll():
             cadena = f'{user[0]} {user[1]} {user[2]} {user[3]}\n'
             textConsulta.insert(tk.END, cadena)
     else:
-        messagebox.showinfo("No encontrado","No se encontraron usuarios en la BD")
+        messagebox.showinfo("Sin datos por mostrar","No se encontraron usuarios en la BD")
 
 w1 = Tk()
 w1.title("CRUD de usuarios")

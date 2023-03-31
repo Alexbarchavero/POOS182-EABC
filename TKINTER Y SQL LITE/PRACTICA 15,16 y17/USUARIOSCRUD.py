@@ -10,7 +10,10 @@ c = ControladorBD()
 # Funciones
 def exeInsert():
     c.saveUser(Name.get(),Correo.get(),Contra.get())
+
 def exeSelectUser():
+    textBus.delete("0.0", "end")
+    
     rsUser = c.consulUser(Busqueda.get())
     for user in rsUser:
         cadena = str(user[0])+" "+user[1]+" "+user[2]+" "+str(user[3])
@@ -19,9 +22,19 @@ def exeSelectUser():
     else:
         messagebox.showinfo("No encontrado","Usuario no existe en BD")
 
+
+def exeSelectAll():
+    users = c.mostrarUsuarios()
+    if users:
+        for user in users:
+            cadena = f'{user[0]} {user[1]} {user[2]} {user[3]}\n'
+            textConsulta.insert(tk.END, cadena)
+    else:
+        messagebox.showinfo("No encontrado","No se encontraron usuarios en la BD")
+
 w1 = Tk()
 w1.title("CRUD de usuarios")
-w1.geometry("500x300")
+w1.geometry("640x480")
 
 panel = ttk.Notebook(w1)
 panel.pack(fill = 'both', expand = 'yes')
@@ -57,9 +70,19 @@ ENid = Entry(pestana2,textvariable=Busqueda).pack()
 
 btnBusqueda = Button(pestana2,text="Buscar usuario",command=exeSelectUser).pack()
 
-subBus = Label(pestana2,text="Registrado",fg="blue",font=("Modern",18)).pack()
-textBus = Text(pestana2, height=5, width=52)
+subBus = Label(pestana2,text="Registro",fg="blue",font=("Modern",18)).pack()
+textBus = Text(pestana2, height=5, width=75)
 textBus.pack()
+
+# Pestaña 3
+titu3 = Label(pestana3,text="Consultar Usuarios",fg="#8B0000",font=("Modern",18)).pack()
+
+btnConsultar = Button(pestana3,text="Consultar",command=exeSelectAll).pack()
+
+subtConsulta = Label(pestana3,text="Lista de usuarios",fg="dark gray",font=("Modern",18)).pack()
+textConsulta = Text(pestana3, height=15, width=75)
+textConsulta.pack()
+
 
 panel.add(pestana1, text = "Agregar Usuarios")
 panel.add(pestana2, text = "Buscar Usuario")

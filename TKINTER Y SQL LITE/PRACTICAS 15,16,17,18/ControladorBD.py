@@ -9,7 +9,7 @@ class ControladorBD:
     
     def conexionBD(self):
         try:
-            conexion = sqlite3.connect("C:/Users/Alejandro/Documents/GitHub/POOS182-EABC/TKINTER Y SQL LITE/PRACTICA 15,16 y17/DB usuarios.db")
+            conexion = sqlite3.connect("C:/Users/Alejandro/Documents/GitHub/POOS182-EABC/TKINTER Y SQL LITE/PRACTICAS 15,16,17,18/DB usuarios.db")
             print("Conectando a la base de datos")
             return conexion
         except sqlite3.OperationalError:

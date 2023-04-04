@@ -44,7 +44,7 @@ class ControladorBD:
             conx.close()
             messagebox.showinfo("Realizado","Usuario Guardado")
     
-    def consulUser(self,id):
+    def searchUser(self,id):
         # Realizar la conexion a la BD
         conx = self.conexionBD()
         # Verificar que el id no este vacio

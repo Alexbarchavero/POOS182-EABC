@@ -1,6 +1,5 @@
 from tkinter import messagebox
 import sqlite3
-
 class acciones:
     def __init__(self):
         pass
@@ -38,7 +37,7 @@ class acciones:
             def validar():
                 try:
                     scriptValidar = "SELECT Material FROM MatConstruccion WHERE Material = ?"
-                    c2.execute(scriptValidar,m1)
+                    c2.execute(scriptValidar,(m1,))
                     res = c2.fetchone()
                     if res:
                         con.commit()
@@ -46,12 +45,15 @@ class acciones:
                 except sqlite3.OperationalError:
                     print("Error de consulta")
             
-            if(m1=="" or validar() is None):
-                messagebox.showwarning("Error de datos","Datos vacios o incorrectos")
+            if(m1=="" or m2=="" or c==""):
+                messagebox.showerror("Error de datos","Datos vacios")
+                con.close()
+            elif(validar() is None):
+                messagebox.showerror("Error","El material no existe en la BD")
                 con.close()
             else:
-                datos =  (m2,c)
-                scriptSQL = "UPDATE MatConstruccion SET Material = ?, Cantidad = ?"
+                datos = (m2,c,m1)
+                scriptSQL = "UPDATE MatConstruccion SET Material = ?, Cantidad = ? WHERE Material = ?"
                 c2.execute(scriptSQL,datos)
                 con.commit()
                 con.close()
@@ -59,8 +61,15 @@ class acciones:
         except sqlite3.OperationalError:
             print("Error de consulta")
     
-    #def consultarTodos(self):
-        #try:
-            
-        #except sqlite3.OperationalError:
-        #    print("Error de consulta")
+    def consultarTodos(self):
+        try:
+            con = self.conxBD()
+            c3 = con.cursor()
+            sql = "SELECT * FROM MatConstruccion"
+            c3.execute(sql)
+            registros = c3.fetchall()
+            con.commit()
+            con.close()
+            return registros
+        except sqlite3.OperationalError:
+            print("Error de consulta")

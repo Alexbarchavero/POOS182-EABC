@@ -22,20 +22,16 @@ romano = StringVar()
 arabigo = StringVar()
 
 # Instancia
-a = romanos()
+a = romanos(romano,arabigo)
 
 # Metodos
-# Metodos
 def rAa():
-    roman = romano.get()
-    roman = roman.upper()
-    roman = roman.replace(' ', '')
-    arabig = a.romano_a_arabigo(roman)
+    arabig = a.romano_a_arabigo()
     messagebox.showinfo("Listo!",f"Tu numero romano en arabigo es: {arabig}")
 
 def aAr():
-    roman = a.arabigo_a_romano(arabigo.get())
-    messagebox.showinfo("Listo!",f"Tu numero arabigo en romano es: {roman}")
+    roman = a.arabigo_a_romano()
+    messagebox.showinfo("Listo!", f"Tu numero arabigo en romano es: {roman}")
 
 # Labels y entrys
 LBromano = Label(f1, text="Ingrese el numero romano:", fg="blue", font=("Century Gothic",14)).pack()
